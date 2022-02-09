@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  border: 1px solid royalblue;
+  
+}
+
+.nav {
+  border: 1px solid plum
+}
+
+.previewImg {
+  width: 70px;
+  height: 70px;
+}
+
+li {
+  border: 1px solid green;
+ }
+
+img {
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.reviews {
+  background-color: rgb(210, 255, 150);
+}
+
+button {
+  background-color: rgb(209, 123, 15);
+  border-radius: 10px;
+  
+}

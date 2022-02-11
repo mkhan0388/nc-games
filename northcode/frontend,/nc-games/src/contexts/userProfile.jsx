@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { UserContext } from "./user";
+import { UserContext } from "./userContext";
 
 
 
 
 
 const UserProfile = () => {
-    const { loggedInUser } = useContext(UserContext)
+
+    const { user } = useContext(UserContext)
+    // console.log({loggedInUser})
     
     
    
@@ -17,7 +19,7 @@ const UserProfile = () => {
     return (
     <div>
         <p>Logged in as:</p>
-        <h2>{loggedInUser.username}</h2>
+        <h2>{user.username}</h2>
     </div>
     )
 }

@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { UserContext, UserProvider } from '../contexts/userContext'
 
-import { getUsers } from '../utils/api'
+
 
 
 const User = () => {
-    const [users, setUsers] = useState([])
-    const { username } = useParams()
+    
+   const { setUser } = useContext(UserContext)
 
-    useEffect(() => {
-        getUsers(username).then((res) => {
-            setUsers(res)
-        })
-    }, [username])
+   
+    
+    
+   
 
 
 return (
@@ -22,10 +22,10 @@ return (
        
                <div>
                <p>
-                   {users.username}
+                 Hello  
                </p>
                <p>
-                   {users.name}
+                   
                </p>
                </div>
          

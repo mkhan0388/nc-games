@@ -1,47 +1,37 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "../contexts/userContext";
 
-import { getUsers } from "../utils/api";
+// import { getUsers } from "../utils/api";
 
 const Welcome = () => {
-    const [input, setInput] = useState("");
-    const [user, setUser] = useState("");
-    const { username } = useParams()
+ 
+    const {user, setUser} = useContext(UserContext)
     
-    useEffect(() => {
-      getUsers(username).then((res) => {
-        setUser(res)
-      })
-    }, [username])
+    
+   
     
     let navigate = useNavigate();
   
-    const handleChange = (event) => {
-      setUser(event.target.value);
-    };
+    
   
     const handleSubmit = (event) => {
       
       event.preventDefault();
-      setUser(input);
-      setInput("");
-      navigate(`/user/${username}`);
+      setUser({username: 'tickle122'});
+      navigate(`/users/tickle122}`);
     };
   
     return (
       <>
         <h1 className="welcomeTitle">Welcome to Big Bad Board</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="welcomeLabel">
-            Username: <br></br>
-            <input
-              id="welcomeLabel"
-              value={username}
-              placeholder="Type username here..."
-              onChange={handleChange}
-            ></input>
+          
+            Sign In: <br></br>
+            
             <br></br>
-          </label>
+          
           <button className="button" type="submit">
             Login
           </button>

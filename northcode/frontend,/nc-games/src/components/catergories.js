@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../utils/api";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const { category } = useParams()
 
   useEffect(() => {
     getCategories().then((res) => {
       setCategories(res);
+      // console.log(res)
     });
   }, []);
 

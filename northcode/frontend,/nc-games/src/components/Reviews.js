@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getReviews } from "../utils/api";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { getReviews, getReviewsByCategory } from "../utils/api";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  // const { category } = useParams();
-  // const [searchParams, setSearchParams] = useSearchParams();
+  const { category } = useParams();
+  const [sortBy, setSortby ] = useState('created_at')
+  
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // const byCategory = searchParams.get("category");
+  const byCategory = searchParams.get("category");
 
   useEffect(() => {
-    getReviews().then((res) => {
-      setReviews(res);
-    });
-  }, []);
+    if (!byCategory) {
+      getReviews(sortBy).then((res) => {
+        setReviews(res);
+        setSearchParams("");
+      });
+    } else {
+      getReviewsByCategory(byCategory).then((res) => {
+        setReviews(res);
+        setSearchParams("");
+      });
+    }
+  }, [ setSearchParams, sortBy ]);
 
   // useEffect(() => {
   //   getReviews(category).then((apiReviews) => {
@@ -21,27 +31,40 @@ const Reviews = () => {
   //   });
   // }, [category]);
 
+  const sortByVotes = () => {
+    setSortby('votes')
+  }
+
+  const sortByCommentCount = () => {
+    setSortby('comment_count')
+  }
+
   return (
     <main className="reviews">
       <h2>All Reviews</h2>
       <div>
         <h5> Sort By </h5>
-        <button>Votes</button>
-        <button>Comment Count</button>
+        <button onClick={() => sortByVotes()}>Votes</button>
+        <button onClick={() => sortByCommentCount()}>Comment Count</button>
       </div>
-      <ul>
-        {reviews.map((review) => {
-          return (
-            <Link key={review.review_id} to={`/reviews/${review.review_id}`}>
-              <li className="li-contain">
+      <div className="the__ul">
+        <div className="container">
+        <ul>
+          {reviews.map((review) => {
+            return (
+              <li key={review.review_id} className="li-contain">
                 <div className="li-card">
-                  <h4>
-                    Title:<p>{review.title}</p>
-                  </h4>
+                  
+                  <h4>Title:</h4>
+                  <Link
+                    
+                    to={`/reviews/${review.review_id}`}
+                  >
+                    <p>{review.title}</p>
+                  </Link>
 
                   <h4>Category:</h4>
                   <Link to={`/reviews?category=${review.category}`}>
-                    {" "}
                     <p>{`${review.category
                       .charAt(0)
                       .toUpperCase()}${review.category.substring(1)} `}</p>
@@ -55,10 +78,11 @@ const Reviews = () => {
                   ></img>
                 </div>
               </li>
-            </Link>
-          );
-        })}
-      </ul>
+            );
+          })}
+        </ul>
+        </div>
+      </div>
     </main>
   );
 };

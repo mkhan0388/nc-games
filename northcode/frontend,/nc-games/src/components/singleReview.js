@@ -22,9 +22,9 @@ const SingleReview = () => {
 
   const handleChange = (event) => {
     setData(event.target.value)
-axios.post(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}/comments`, {username: event.target.value, body:event.target.value }).then((res) => {
-        console.log(res)
-      })
+// axios.post(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}/comments`, {username: event.target.value, body:event.target.value }).then((res) => {
+//         console.log(res)
+//       })
     
   }
   

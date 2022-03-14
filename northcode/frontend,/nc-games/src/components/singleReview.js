@@ -12,7 +12,7 @@ import { UserContext } from "../contexts/userContext";
 
 const SingleReview = () => {
   const { review_id } = useParams();
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
   const [review, setReview] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -45,7 +45,7 @@ const SingleReview = () => {
   const addComment = (event) => {
     event.preventDefault();
     const commentDetail = {
-      username: user.username,
+      username: 'tickle122',
       body: newComment,
     };
     postComment(review_id, commentDetail)

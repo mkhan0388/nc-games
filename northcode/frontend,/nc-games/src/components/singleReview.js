@@ -8,7 +8,6 @@ import {
 } from "../utils/api";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react/cjs/react.development";
 import { UserContext } from "../contexts/userContext";
 
 const SingleReview = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   deleteCommentById,
   getComments,
@@ -91,15 +91,15 @@ const SingleReview = () => {
             <div className="comments_section">
               <div className="comments_div">
                 <p key={comment.comment_id} className="comments">
-                  {comment.body} 
-                  </p>
-                  <p>
+                  {comment.body} <br></br>
+                  <br></br>
+                  
                     {" "}
                     <Link to={`/users/${comment.author}`}>
                       {comment.author}
                     </Link>
-                  </p>
-               
+                  
+               </p>
               </div>
               <div>
                 <button

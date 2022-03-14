@@ -92,14 +92,15 @@ const SingleReview = () => {
             <div className="comments_section">
               <div className="comments_div">
                 <p key={comment.comment_id} className="comments">
-                  {comment.body}
+                  {comment.body} 
+                  </p>
                   <p>
                     {" "}
                     <Link to={`/users/${comment.author}`}>
                       {comment.author}
                     </Link>
                   </p>
-                </p>
+               
               </div>
               <div>
                 <button

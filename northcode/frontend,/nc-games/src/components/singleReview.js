@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   deleteCommentById,
   getComments,
@@ -8,11 +8,11 @@ import {
 } from "../utils/api";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-// import { UserContext } from "../contexts/userContext";
+
 
 const SingleReview = () => {
   const { review_id } = useParams();
-  // const { user, setUser } = useContext(UserContext);
+
   const [review, setReview] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -20,7 +20,7 @@ const SingleReview = () => {
   const [disable, setDisable] = useState(false);
   const [commentVote, setCommentVote] = useState(false);
 
-  // console.log(user)
+
 
   useEffect(() => {
     getSingleReview(review_id)
@@ -75,12 +75,12 @@ const SingleReview = () => {
 
   return (
     <>
-      <div className="container">
+      <div  className="container">
         <h2 className="review_title">{review.title}</h2>
 
-        <div>
+        <div >
           <p> User: {review.owner}</p>
-          <article className="review_body">
+          <article key={review.review_id} className="review_body">
             Review: {review.review_body}
           </article>
           <img src={review.review_img_url} alt=""></img>
@@ -90,7 +90,7 @@ const SingleReview = () => {
       <article>
         {comments.map((comment) => {
           return (
-            <div className="comments_section">
+            <div key={comment.comment_id}  className="comments_section">
               <div className="comments_div">
                 <p key={comment.comment_id} className="comments">
                   {comment.body} <br></br>
@@ -143,7 +143,7 @@ const SingleReview = () => {
       </button>
       <br></br>
 
-      <button className='like_delete'
+      <button 
         disabled={disable}
         onClick={() => changeVotes()}
         className='like_delete'

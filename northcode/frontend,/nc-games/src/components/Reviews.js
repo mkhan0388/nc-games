@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getReviews, getReviewsByCategory } from "../utils/api";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  const { category } = useParams();
-  const [sortBy, setSortby ] = useState('created_at')
-  
+
+  const [sortBy, setSortby] = useState("created_at");
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const byCategory = searchParams.get("category");
@@ -23,21 +23,15 @@ const Reviews = () => {
         setSearchParams("");
       });
     }
-  }, [ setSearchParams, sortBy ]);
-
-  // useEffect(() => {
-  //   getReviews(category).then((apiReviews) => {
-  //     setReviews(apiReviews);
-  //   });
-  // }, [category]);
+  }, [byCategory, setSearchParams, sortBy]);
 
   const sortByVotes = () => {
-    setSortby('votes')
-  }
+    setSortby("votes");
+  };
 
   const sortByCommentCount = () => {
-    setSortby('comment_count')
-  }
+    setSortby("comment_count");
+  };
 
   return (
     <main className="reviews">
@@ -49,38 +43,34 @@ const Reviews = () => {
       </div>
       <div className="the__ul">
         <div className="container">
-        <ul>
-          {reviews.map((review) => {
-            return (
-              <li key={review.review_id} className="li-contain">
-                <div className="li-card">
-                  
-                  <h4>Title:</h4>
-                  <Link
-                    
-                    to={`/reviews/${review.review_id}`}
-                  >
-                    <p>{review.title}</p>
-                  </Link>
+          <ul>
+            {reviews.map((review) => {
+              return (
+                <li key={review.review_id} className="li-contain">
+                  <div className="li-card">
+                    <h4>Title:</h4>
+                    <Link to={`/reviews/${review.review_id}`}>
+                      <p>{review.title}</p>
+                    </Link>
 
-                  <h4>Category:</h4>
-                  <Link to={`/reviews?category=${review.category}`}>
-                    <p>{`${review.category
-                      .charAt(0)
-                      .toUpperCase()}${review.category.substring(1)} `}</p>
-                  </Link>
-                </div>
-                <div className="li-pic">
-                  <img
-                    className="previewImg"
-                    src={review.review_img_url}
-                    alt=""
-                  ></img>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                    <h4>Category:</h4>
+                    <Link to={`/reviews?category=${review.category}`}>
+                      <p>{`${review.category
+                        .charAt(0)
+                        .toUpperCase()}${review.category.substring(1)} `}</p>
+                    </Link>
+                  </div>
+                  <div className="li-pic">
+                    <img
+                      className="previewImg"
+                      src={review.review_img_url}
+                      alt=""
+                    ></img>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </main>

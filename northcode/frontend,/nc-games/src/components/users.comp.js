@@ -5,10 +5,15 @@ import { UserContext, UserProvider } from '../contexts/userContext'
 
 
 
-const User = () => {
+const User = (props) => {
+  
     
    const { setUser } = useContext(UserContext)
 
+   const { username } =  useParams()
+
+   console.log(username)
+  
    
     
     
@@ -22,7 +27,7 @@ return (
        
                <div>
                <p>
-                 Hello  
+                 Hello  {username}
                </p>
                <p>
                    

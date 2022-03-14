@@ -1,79 +1,153 @@
 import React, { useEffect, useState } from "react";
-import { getComments, getSingleReview, patchVotes, postComment } from "../utils/api";
+import {
+  deleteCommentById,
+  getComments,
+  getSingleReview,
+  likeCommentById,
+  postComment,
+} from "../utils/api";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "../contexts/userContext";
 
 const SingleReview = () => {
   const { review_id } = useParams();
+  const { user, setUser } = useContext(UserContext);
   const [review, setReview] = useState({});
-  const [comments, setComments] = useState([])
-  const [data, setData] = useState({username: '', body: ''})
-  const [votes, setVotes] = useState(review.votes)
-  
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [votes, setVotes] = useState(0);
+  const [disable, setDisable] = useState(false);
+  const [commentVote, setCommentVote] = useState(false);
+
   useEffect(() => {
-    getSingleReview(review_id).then((res) => {
-      setReview(res);
-    }).then((getComments(review_id).then((res) => {
-      setComments(res)
-    })))
-    
+    getSingleReview(review_id)
+      .then((res) => {
+        setReview(res);
+      })
+      .then(
+        getComments(review_id).then((res) => {
+          setComments(res);
+        })
+      );
   }, [review_id]);
 
+  const reloadPage = () => {
+    window.location.reload(false);
+  };
+
   const handleChange = (event) => {
-    setData(event.target.value)
-// axios.post(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}/comments`, {username: event.target.value, body:event.target.value }).then((res) => {
-//         console.log(res)
-//       })
-    
-  }
-  
-  const handleSubmit = (event) => {
-      event.preventDefault();
-      
-      };
+    setNewComment(event.target.value);
+  };
+
+  const addComment = (event) => {
+    event.preventDefault();
+    const commentDetail = {
+      username: user.username,
+      body: newComment,
+    };
+    postComment(review_id, commentDetail)
+      .then(() => {
+        // reloadPage()
+        setComments((current) => {
+          return [commentDetail, ...current];
+        });
+      })
+      .then(() => {
+        setNewComment("");
+      });
+  };
 
   const changeVotes = () => {
-    setVotes((currCount) => currCount + 1)
-    axios.patch(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}`, {inc_votes: 1}).then((res) => {
-      setVotes(res)
-    })
-    
-  }     
+    setVotes((currCount) => currCount + 1);
 
- 
+    axios
+      .patch(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}`, {
+        inc_votes: 1,
+      })
+      .then((res) => {
+        setVotes(res.data.review.votes);
+      });
+    setDisable(true);
+  };
+
   return (
     <>
       <div className="container">
         <h2 className="review_title">{review.title}</h2>
 
         <div>
-            <p> User: {review.owner}</p>
-            <article className="review_body"> Review: {review.review_body}</article>
-            <img  src={review.review_img_url} alt=""></img>
-            <p> Category: {review.category}</p>
-            <p >Number of Votes:  {review.votes}</p>
-            
-
+          <p> User: {review.owner}</p>
+          <article className="review_body">
+            Review: {review.review_body}
+          </article>
+          <img src={review.review_img_url} alt=""></img>
+          <p> Category: {review.category}</p>
         </div>
-      </div>     
+      </div>
       <article>
-        
         {comments.map((comment) => {
           return (
-            <p key={comment.comment_id} className="comments">{comment.body} <Link to={`/users/${comment.author}`}>{comment.author}</Link></p>
-          )
-        })}
+            <div className="comments_section">
+              <div className="comments_div">
+                <p key={comment.comment_id} className="comments">
+                  {comment.body}
+                  <p>
+                    {" "}
+                    <Link to={`/users/${comment.author}`}>
+                      {comment.author}
+                    </Link>
+                  </p>
+                </p>
+              </div>
+              <div>
+                <button
+                  className="like_delete"
+                  onClick={() => {setCommentVote(true);
+                    const id = comment.comment_id;
+                    setVotes((currCount) => currCount + 1);
+                    likeCommentById(id).then((res) => {
+                      console.log(res);
+                      
+                      setVotes(res);
+                    });
+                  }}
+                disabled={commentVote}>
+                  {'💙'}
+                </button>
 
+                <button
+                  className="like_delete"
+                  onClick={() => {
+                    const id = comment.comment_id;
+                    deleteCommentById(id).then(() => {
+                      reloadPage();
+                    });
+                  }}
+                >
+                  ❌
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </article>
-      <form onSubmit={handleSubmit}>
- 
-      <input onChange={handleChange} placeholder="enter username"></input>
-      <input onChange={handleChange} placeholder="Add Comment"></input> <br></br>
-      <button className="button">Add</button> <br></br>
-      <button onClick={changeVotes} className="button">Like</button>
-      <button className="button">Bad board</button>
-      </form>
+     
+      <input onChange={handleChange} placeholder="Add Comment"></input>
+      <br></br>
+      <button onClick={addComment} className="button">
+        Add
+      </button>
+      <br></br>
+
+      <button className='like_delete'
+        disabled={disable}
+        onClick={() => changeVotes()}
+        className='like_delete'
+      >
+        {"💙"}
+      </button>
     </>
   );
 };

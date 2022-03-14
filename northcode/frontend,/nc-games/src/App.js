@@ -7,19 +7,21 @@ import Reviews from "./components/Reviews";
 import Welcome from './components/welcome'
 import Catergories from './components/catergories'
 import SingleReview from "./components/singleReview";
-import User from "./components/users.comp";
-import { UserProvider } from "./contexts/userContext";
-import UserProfile from "./contexts/userProfile";
+import { UserContext } from "./contexts/userContext";
+import Profile from "./contexts/userProfile";
 
 function App() {
  
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({
+		username: '',
+		avatar_url: '',
+	});
 
   return (
-   <UserProvider value={{ user, setUser } }>
+   <UserContext.Provider value={{ user, setUser } }>
     <BrowserRouter>
       <div className="main">
-        <UserProfile />
+        
         <Header></Header>
         <Nav />
           <Routes>
@@ -28,14 +30,15 @@ function App() {
           Reviews</Route>
           <Route path='/categories' element={<Catergories />}></Route>
           <Route path='/reviews/:review_id' element={<SingleReview />}></Route>
-          <Route path={`/users/:username`} element={<User /> } ></Route>
+          <Route path='/users/:username' element={<Profile /> } ></Route>
 
         </Routes>
+          
 
         
       </div>
     </BrowserRouter>
-   </UserProvider>
+   </UserContext.Provider>
   );
 }
 

@@ -20,6 +20,8 @@ const SingleReview = () => {
   const [disable, setDisable] = useState(false);
   const [commentVote, setCommentVote] = useState(false);
 
+  // console.log(user)
+
   useEffect(() => {
     getSingleReview(review_id)
       .then((res) => {

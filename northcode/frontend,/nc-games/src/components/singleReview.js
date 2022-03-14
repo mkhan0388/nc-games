@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
   deleteCommentById,
   getComments,
@@ -8,7 +8,7 @@ import {
 } from "../utils/api";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../contexts/userContext";
+// import { UserContext } from "../contexts/userContext";
 
 const SingleReview = () => {
   const { review_id } = useParams();

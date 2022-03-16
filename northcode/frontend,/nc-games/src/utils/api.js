@@ -42,9 +42,9 @@ export const getComments = (review_id) => {
   });
 };
 
-export const getUser = (username) => {
+export const getUser = (tickle122) => {
   return reviewApi
-    .get(`users/${username}`)
+    .get(`users/${tickle122}`)
     .then(({ data }) => {
       return data.user;
     })

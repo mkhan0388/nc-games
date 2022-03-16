@@ -16,7 +16,7 @@ const Welcome = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // setUsername('');
-		navigate(`/users/tickle122`);
+		navigate(`/users/mallionaire`);
   };
 
   return (

@@ -1,20 +1,19 @@
 import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { UserContext, UserProvider } from '../contexts/userContext'
+import { getUser } from '../utils/api'
+// import { UserContext, UserProvider } from '../contexts/userContext'
 
+const User = () => {
 
+  const [user, setUser] = useState({})
 
-
-const User = (props) => {
+  useEffect(() => {
+    getUser('tickle122').then((res) => {
+      setUser(res)
+    })
+  }, [])
   
-    
-   const { setUser } = useContext(UserContext)
 
-   const { username } =  useParams()
-
-   console.log(username)
-  
-   
     
     
    
@@ -22,16 +21,12 @@ const User = (props) => {
 
 return (
     <div>
-    <h2>My page:</h2>
+    <h2>My page: tickle122 </h2>
     <main>
        
                <div>
-               <p>
-                 Hello  {username}
-               </p>
-               <p>
-                   
-               </p>
+               <img alt='avatar_iamge'src={user.avatar_url} />
+              
                </div>
          
     </main>

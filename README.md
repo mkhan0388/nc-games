@@ -15,21 +15,20 @@ This is my Front-end project that connects with my back-end API project and it i
 - In your teminal CLI:
 
 ```
-$ git clone 
-$ cd ks-games
+$ git clone https://github.com/mkhan0388/nc-games.git
+$ cd nc-games
 ```
 
 ## Install dependencies:
 
-- Required dependencies will be pulled from the `package.json` file. In your teminal CLI:
 
 ```
 $ npm install
 ```
 
 ## Run the app:
-
-- You can now run the app with the following command in the CLI, this will load the app in your Browser for you to use:
+ 
 
 ```
 $ npm start
+This will load the app in your browser.

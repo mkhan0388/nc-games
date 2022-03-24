@@ -9,7 +9,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import CommentButton from "./Comments";
 
-const SingleReview = () => {
+const SingleReview = (user) => {
   const { review_id } = useParams();
 
   const [review, setReview] = useState({});
@@ -102,9 +102,13 @@ const SingleReview = () => {
                   className="like_delete"
                   onClick={() => {
                     const id = comment.comment_id;
-                    deleteCommentById(id).then(() => {
-                      reloadPage();
-                    });
+                    if (user.value === comment.author) {
+                      deleteCommentById(id).then(() => {
+                        reloadPage();
+                      });
+                    } else {
+                      alert("Not authorised to delete");
+                    }
                   }}
                 >
                   ❌
@@ -114,7 +118,7 @@ const SingleReview = () => {
           );
         })}
       </article>
-      
+
       <form onSubmit={addComment}>
         <textarea
           onChange={handleChange}

@@ -15,19 +15,19 @@ code {
 }
 
 .header {
-  /* border: 1px solid royalblue; */
+  
   font-weight: 500;
   margin: 10px;
   padding: -20px;
-  color: rgb(61, 60, 60);
-  text-shadow: 2px 2px #c3c0c0;
+  color: rgb(0, 0, 0);
+  
     
   
   
 }
 
 .nav {
-  /* border: 1px solid plum; */
+  
   padding: 5px;
   margin: 5px;
   display: flex;
@@ -40,7 +40,7 @@ code {
 }
 
 li {
-  /* border: 1px solid green; */
+  
   margin: 10px;
   box-shadow: 5px 5px #888;
   background-color: hsl(193, 38%, 86%);
@@ -52,9 +52,7 @@ img {
   border-radius: 5px;
 }
 
-/* .reviews {
-  background-color: rgb(210, 255, 150);
-} */
+
 
 button {
   background-color: hsl(150, 62%, 39%);
@@ -76,11 +74,6 @@ textarea {
   padding: 8px;
 }
 
-/* .container {
-}
-
-.the__ul {
-} */
 
 a {
   color: hsl(150, 62%, 39%) ;
@@ -100,9 +93,9 @@ h2 {
 }
 
 .review_title {
-  color: blanchedalmond;
+  color: aliceblue;
   text-decoration: underline;
-  text-shadow: 1px 2px black;
+  
 }
 
 .comments {
@@ -121,7 +114,7 @@ background-color: darkseagreen;
 }
 
 .comments_section {
-  /* border: 1px solid black; */
+  
   margin: 5px;
   display: flex;
   flex-direction: row;

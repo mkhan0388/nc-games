@@ -6,7 +6,6 @@ const reviewApi = axios.create({
 
 export const getCategories = () => {
   return reviewApi.get("/categories").then((res) => {
-    //    console.log({ data })
     return res.data.categories;
   });
 };
@@ -25,7 +24,6 @@ export const getReviewsByCategory = (category) => {
       },
     })
     .then((res) => {
-      // console.log(res.data.reviews)
       return res.data.reviews;
     });
 };
@@ -71,9 +69,10 @@ export const likeCommentById = (comment_id) => {
     })
     .then((res) => {
       return res.data.comment.votes;
-    }).catch((err) => {
-      console.log(err)
     })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const deleteCommentById = (comment_id) => {

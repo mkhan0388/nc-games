@@ -1,9 +1,7 @@
-
 import { Link } from "react-router-dom";
-// import { useContext } from "react";
-// import { UserContext } from "../contexts/userContext";
+
 const Nav = () => {
-  // const { user, setUser } = useContext(UserContext);
+  
 
   return (
     <nav className="nav">

@@ -15,12 +15,10 @@ const Reviews = () => {
     if (!byCategory) {
       getReviews(sortBy).then((res) => {
         setReviews(res);
-        setSearchParams("");
       });
     } else {
       getReviewsByCategory(byCategory).then((res) => {
         setReviews(res);
-        setSearchParams("");
       });
     }
   }, [byCategory, setSearchParams, sortBy]);
@@ -54,10 +52,13 @@ const Reviews = () => {
                     </Link>
 
                     <h4>Category:</h4>
+
                     <Link to={`/reviews?category=${review.category}`}>
-                      <p>{`${review.category
-                        .charAt(0)
-                        .toUpperCase()}${review.category.substring(1)} `}</p>
+                      <p>
+                        {`${review.category
+                          .charAt(0)
+                          .toUpperCase()}${review.category.substring(1)} `}
+                      </p>
                     </Link>
                   </div>
                   <div className="li-pic">

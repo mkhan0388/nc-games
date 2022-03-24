@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(210, 255, 150);
+  background-color:hsl(217, 19%, 38%);
   text-align: center;
 }
 
@@ -43,7 +43,7 @@ li {
   /* border: 1px solid green; */
   margin: 10px;
   box-shadow: 5px 5px #888;
-  background-color: rgb(235, 233, 93);
+  background-color: hsl(193, 38%, 86%);
 }
 
 img {
@@ -57,7 +57,7 @@ img {
 } */
 
 button {
-  background-color: rgb(221, 167, 39);
+  background-color: hsl(150, 62%, 39%);
   border-radius: 5px;
   width: 15vw;
   margin: 10px;
@@ -69,8 +69,11 @@ button:hover {
   transition: 0.5s;
 }
 
-input {
+textarea {
   border-radius: 5px;
+  width: 45%;
+  height: 40px;
+  padding: 8px;
 }
 
 /* .container {
@@ -80,7 +83,7 @@ input {
 } */
 
 a {
-  color: rgb(85, 46, 85) ;
+  color: hsl(150, 62%, 39%) ;
 }
 
 h2 {
@@ -123,7 +126,7 @@ background-color: darkseagreen;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: blanchedalmond;
+  background-color: aliceblue;
 }
 
 .like_delete {

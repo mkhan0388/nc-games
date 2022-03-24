@@ -3,12 +3,11 @@ import {
   deleteCommentById,
   getComments,
   getSingleReview,
-  likeCommentById,
   postComment,
 } from "../utils/api";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-
+import CommentButton from "./Comments";
 
 const SingleReview = () => {
   const { review_id } = useParams();
@@ -16,11 +15,8 @@ const SingleReview = () => {
   const [review, setReview] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [votes, setVotes] = useState(0);
+  const [votes, setVotes] = useState("💙");
   const [disable, setDisable] = useState(false);
-  const [commentVote, setCommentVote] = useState(false);
-
-
 
   useEffect(() => {
     getSingleReview(review_id)
@@ -45,12 +41,11 @@ const SingleReview = () => {
   const addComment = (event) => {
     event.preventDefault();
     const commentDetail = {
-      username: 'tickle122',
+      username: "tickle122",
       body: newComment,
     };
     postComment(review_id, commentDetail)
       .then(() => {
-        // reloadPage()
         setComments((current) => {
           return [commentDetail, ...current];
         });
@@ -62,7 +57,6 @@ const SingleReview = () => {
 
   const changeVotes = () => {
     setVotes((currCount) => currCount + 1);
-
     axios
       .patch(`https://big-bad-board.herokuapp.com/api/reviews/${review_id}`, {
         inc_votes: 1,
@@ -75,10 +69,10 @@ const SingleReview = () => {
 
   return (
     <>
-      <div  className="container">
+      <div className="container">
         <h2 className="review_title">{review.title}</h2>
 
-        <div >
+        <div>
           <p> User: {review.owner}</p>
           <article key={review.review_id} className="review_body">
             Review: {review.review_body}
@@ -90,34 +84,19 @@ const SingleReview = () => {
       <article>
         {comments.map((comment) => {
           return (
-            <div key={comment.comment_id}  className="comments_section">
+            <div key={comment.comment_id} className="comments_section">
               <div className="comments_div">
                 <p key={comment.comment_id} className="comments">
                   {comment.body} <br></br>
                   <br></br>
-                  
-                    {" "}
-                    <Link to={`/users/${comment.author}`}>
-                      {comment.author}
-                    </Link>
-                  
-               </p>
+                  <Link to={`/users/${comment.author}`}>{comment.author}</Link>
+                </p>
               </div>
               <div>
-                <button
-                  className="like_delete"
-                  onClick={() => {setCommentVote(true);
-                    const id = comment.comment_id;
-                    setVotes((currCount) => currCount + 1);
-                    likeCommentById(id).then((res) => {
-                      console.log(res);
-                      
-                      setVotes(res);
-                    });
-                  }}
-                disabled={commentVote}>
-                  {'💙'}
-                </button>
+                <CommentButton
+                  votes={comment.votes}
+                  comment_id={comment.comment_id}
+                />
 
                 <button
                   className="like_delete"
@@ -135,20 +114,24 @@ const SingleReview = () => {
           );
         })}
       </article>
-     
-      <input onChange={handleChange} placeholder="Add Comment"></input>
-      <br></br>
-      <button onClick={addComment} className="button">
-        Add
-      </button>
+      
+      <form onSubmit={addComment}>
+        <textarea
+          onChange={handleChange}
+          placeholder="Add Comment"
+          required="required"
+        ></textarea>
+        <br></br>
+        <button className="button">Add</button>
+      </form>
       <br></br>
 
-      <button 
+      <button
         disabled={disable}
         onClick={() => changeVotes()}
-        className='like_delete'
+        className="like_delete"
       >
-        {"💙"}
+        {votes}
       </button>
     </>
   );

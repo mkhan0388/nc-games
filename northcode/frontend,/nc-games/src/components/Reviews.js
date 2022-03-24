@@ -67,6 +67,7 @@ const Reviews = () => {
                       alt=""
                     ></img>
                   </div>
+                  <p>Number of Votes {review.votes}</p>
                 </li>
               );
             })}
